@@ -3,7 +3,9 @@ const router = express.Router();
 
 const {
    addContact,
-   showallusers
+   showallusers,
+   deleteUser
+   
     
 
   } = require("../controllers/userControllers");
@@ -12,6 +14,7 @@ const {
 
 router.post("/addcontact",addContact)
 router.get("/allUsers",showallusers)
+router.delete("/deleteUsers/:id",deleteUser)
 
 
 module.exports = router;

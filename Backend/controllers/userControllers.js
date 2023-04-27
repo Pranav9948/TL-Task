@@ -57,7 +57,40 @@ const addContact = async (req, res) => {
     }
   };
 
+ 
 
+  const deleteUser=async(req,res)=>{
+
+    try{
+
+        const {id} = req.params;
+
+        console.log('1235',id);
+
+        Users.findByIdAndRemove(id)
+          .then((result) => {
+            console.log("Removed User : ");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    
+        res.status(200).send({
+          message: "deleting userslist successfull",
+          success: true,
+        });
+
+    }
+
+    catch(err){
+
+        console.log('123',err)
+
+        res
+        .status(500)
+        .send({ message: "deleting userslist failed", err, success: false });
+    }
+  }
 
 
 
@@ -65,6 +98,7 @@ const addContact = async (req, res) => {
 
   module.exports = {
     addContact,
-    showallusers
+    showallusers,
+    deleteUser
     
   };

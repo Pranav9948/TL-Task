@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
 
 const ShowUsersList = () => {
   const [usersLists, setUsersList] = useState([]);
@@ -20,9 +22,21 @@ const ShowUsersList = () => {
   };
 
 
-  const deleteHandler=(id)=>{
+  const deleteHandler=async(id)=>{
 
     console.log('delete id from',id)
+
+    const { data } = await axios.delete(`/api/users/deleteUsers/${id}`);
+    const {success}=data
+    console.log('133',success);
+
+    if(success){
+
+        getAllUsersList()
+
+    }
+
+    
   }
 
 
@@ -45,7 +59,7 @@ const ShowUsersList = () => {
                     <h4 className="mt-3 mb-3 ">username : {user.username}</h4>
                     <h5 className="mt-3 mb-3 ">MobileNumber : {user.mobileNumber}</h5>
                      
-             <Button  className="bg-green-500 text-white">Edit</Button>{' '}
+           <Link to={`/edit/${user._id}`}> <Button  className="bg-green-500 text-white">Edit</Button>{' '}</Link> 
              <Button className="bg-red-400 text-white" onClick={()=>deleteHandler(user._id)} >Delete</Button>{' '}
 
 
