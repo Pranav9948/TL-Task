@@ -32,7 +32,39 @@ const addContact = async (req, res) => {
   };
 
 
+  const showallusers=async (req, res) => {
+    try {
+  
+
+        const showusers=await Users.find({})
+
+        console.log('123',showusers);
+     
+
+     
+        res
+          .status(200)
+          .send({ message: "user fetched successfully...", success: true ,showusers });
+      
+      
+    } 
+    
+    catch (err) {
+      res
+        .status(500)
+        .send({ message: "something went wrong", success: false, err });
+        console.log("kkk",err)
+    }
+  };
+
+
+
+
+
+
+
   module.exports = {
-    addContact
+    addContact,
+    showallusers
     
   };

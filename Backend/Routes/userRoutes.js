@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 const {
-   addContact
+   addContact,
+   showallusers
     
 
   } = require("../controllers/userControllers");
@@ -10,6 +11,7 @@ const {
 
 
 router.post("/addcontact",addContact)
+router.get("/allUsers",showallusers)
 
 
 module.exports = router;
