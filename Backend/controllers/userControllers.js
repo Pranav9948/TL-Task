@@ -94,11 +94,79 @@ const addContact = async (req, res) => {
 
 
 
+ 
+  const  editUser = async (req, res) => {
+    try {
+      
+        const {id} = req.params;
+  
+      console.log("2244", req.body);
+      const data = req.body;
+  
+      Users.findByIdAndUpdate(id, data)
+        .then((result) => {
+          console.log("Updated User : ", result);
+        })
+        .catch((error) => {
+          console.log(err);
+        });
+  
+      const updatedUser = await Users.find({ _id: id });
+      console.log("editable", updatedUser);
+  
+      res.status(200).send({
+        message: "User updated successfully",
+        success: true,
+        updatedUser,
+      });
+    } catch (err) {
+      console.log("erroccured", err);
+      res
+        .status(500)
+        .send({ message: "some error occured", success: false, err });
+    }
+  };
+
+
+
+
+  const getUserById=async(req,res)=>{
+
+       try{
+
+        const {id} = req.params;
+
+        const userDetails = await Users.find({ _id: id });
+
+        console.log("cv", userDetails);
+    
+        res.status(200).send({
+          message: "userDetails fetched successfully",
+          success: true,
+          userDetails,
+        });
+
+
+
+       }
+
+       catch(err){
+         console.log(err)
+
+         res
+         .status(500)
+         .send({ message: "userDetails fetching failed", err, success: false });
+     }
+       }
+  
+
 
 
   module.exports = {
     addContact,
     showallusers,
-    deleteUser
+    deleteUser,
+    editUser,
+    getUserById
     
   };
